@@ -1,6 +1,6 @@
 #include "block.hpp"
 
-Block::Block(Position position, int cellSize) : position(position), cellSize(cellSize)
+Block::Block(int cellSize) : position({0, 4}), cellSize(cellSize)
 {
 
     this->rotationState = 0;
@@ -23,6 +23,10 @@ std::vector<Position> Block::GetCellPositions() const
 void Block::Rotate()
 {
     rotationState = (rotationState + 1) % 4;
+}
+
+void Block::Move(Position direction){
+    position = position + direction;
 }
 
 void Block::Draw() const

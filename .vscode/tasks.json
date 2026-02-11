@@ -13,7 +13,7 @@
         "args": [
           "RAYLIB_PATH=C:/raylib/raylib",
           "PROJECT_NAME=${fileBasenameNoExtension}",
-          "OBJS=$(wildcard *.cpp) $(wildcard src/*.cpp) $(wildcard src/*.hpp)",
+          "OBJS= $(wildcard *.cpp) $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)",
           "BUILD_MODE=DEBUG"
         ]
       },
