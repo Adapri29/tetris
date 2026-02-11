@@ -22,6 +22,7 @@ public:
     std::vector<Position> GetCellPositions() const;
     int id() const {return id_;};
     void Rotate();
+    void UndoRotate();
     void Move(Position direction);
     void Draw() const;
 };

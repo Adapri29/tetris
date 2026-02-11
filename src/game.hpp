@@ -14,10 +14,11 @@ class Game{
         Block currentBlock;
         Block nextBlock; 
 
+        
         double lastUpdatedTime;
-
+        
         bool EventTriggered(double interval);
-
+        
         Block GetRandomBlock();
         std::vector<Block> GetAllBlocks();
         void MoveBlockLeft();
@@ -28,8 +29,10 @@ class Game{
         
         bool IsBlockOutside();
         bool BlockFits();
-
-    public:
+        
+        public:
+        bool gameOver;
+        
         Game(int nRows, int nColumns, int cellSize);
         void HandleInput();
         void Update();

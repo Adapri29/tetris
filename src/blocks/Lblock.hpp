@@ -18,6 +18,6 @@ public:
 
         color = GetCellColors()[id_];
 
-        position={-1, 4};
+        position={-2, 4};
     }
 };

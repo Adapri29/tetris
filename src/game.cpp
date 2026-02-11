@@ -7,6 +7,7 @@ Game::Game(int nRows, int nColumns, int cellSize): grid(nRows, nColumns, cellSiz
     blocks = GetAllBlocks();
     currentBlock = GetRandomBlock();
     nextBlock = GetRandomBlock();
+    gameOver = false;
 };
 
 Block Game::GetRandomBlock(){
@@ -37,6 +38,8 @@ std::vector<Block> Game::GetAllBlocks(){
 
 
 void Game::MoveBlockLeft(){
+    if(gameOver) return;
+
     currentBlock.Move({0, -1});
     if(IsBlockOutside() || !BlockFits()){
         currentBlock.Move({0, 1});
@@ -44,6 +47,8 @@ void Game::MoveBlockLeft(){
 }
 
 void Game::MoveBlockRight(){
+    if(gameOver) return;
+
     currentBlock.Move({0, 1});
     if(IsBlockOutside() || !BlockFits()){
         currentBlock.Move({0, -1});
@@ -51,6 +56,8 @@ void Game::MoveBlockRight(){
 }
 
 void Game::MoveBlockDown(){
+    if(gameOver) return;
+
     currentBlock.Move({1, 0});
     if(IsBlockOutside() || !BlockFits()){
         currentBlock.Move({-1, 0});
@@ -59,7 +66,11 @@ void Game::MoveBlockDown(){
 }
 
 void Game::RotateBlock(){
+    if(gameOver) return;
     currentBlock.Rotate();
+    if(!BlockFits()){
+        currentBlock.UndoRotate();
+    }
 }
 
 bool Game::IsBlockOutside(){
@@ -76,8 +87,17 @@ bool Game::IsBlockOutside(){
 bool Game::BlockFits(){
     std::vector<Position> tiles = currentBlock.GetCellPositions();
     for(Position item : tiles){
-        if(!grid.IsCellEmpty(item.row, item.column)){
-            return false;
+       if (!grid.IsCellOutside(item.row, item.column)) {
+            // Si está dentro y la celda no está vacía, hay colisión real
+            if (!grid.IsCellEmpty(item.row, item.column)) {
+                return false;
+            }
+        } else {
+            if (item.row >= 0 || item.column < 0 || item.column >= 10) { // asumiendo 10 columnas
+                 // Si necesitas ser muy preciso, mejor usa IsCellOutside pero 
+                 // ignora el error si row < 0
+                 if(item.row >= 0) return false; 
+            }
         }
     }
 
@@ -91,6 +111,9 @@ void Game::LockBlock(){
     }
 
     currentBlock = nextBlock;
+    if(!BlockFits()){
+        gameOver=true;
+    }
     nextBlock = GetRandomBlock();
     grid.ClearFullRows();
 }
@@ -117,7 +140,7 @@ void Game::HandleInput(){
 }
 
 void Game::Update(){
-    if(EventTriggered(0.5)){
+    if(EventTriggered(0.2)){
         MoveBlockDown();
     }
 }

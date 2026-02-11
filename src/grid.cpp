@@ -28,32 +28,26 @@ void Grid::SetValue(int row, int column, int value)
 int Grid::GetValue(int row, int column) const
 {
     return grid[row][column];
-}
+} 
 
 bool Grid::IsCellOutside(int row, int column){
-    if(row < 0 || row >= nRows) return true;
-    if(column<0 || column >= nColumns) return true;
-
+    if (column < 0 || column >= nColumns) return true;
+    if (row >= nRows) return true;
     return false;
 }
 
 bool Grid::IsCellEmpty(int row, int column){
-    if(GetValue(row, column) == 0){
-        return true;
-    }
-    
-    return false;
+    if (row < 0) return true;
+    if (IsCellOutside(row, column)) return false; 
+    return grid[row][column] == 0;
 }
 
 bool Grid::IsRowFull(int row){
-    std::cout<<"Row: "<<row<<std::endl;
     for(int column=0; column<nColumns; column++){
         if(IsCellEmpty(row, column)){
-            std::cout<<"No full"<<row<<std::endl;
             return false;
         }
     }
-    std::cout<<"full"<<row<<std::endl;
     return true;
 }
 
@@ -72,7 +66,7 @@ void Grid::MoveRowDown(int row, int numRows){
 
 int Grid::ClearFullRows(){
     int completed = 0;
-    std::cout<<"Comprobar filas"<<std::endl;
+
     for(int row = nRows-1; row>=0; row--){
         if(IsRowFull(row)){
             ClearRow(row);
@@ -92,10 +86,9 @@ void Grid::Draw() const
     {
         for (int column = 0; column < nColumns; column++)
         {
+           
             int cellValue = GetValue(row, column);
-            DrawRectangle(column * cellSize + 1, row * cellSize + 1, cellSize - 1, cellSize - 1, colors[cellValue]);
+            DrawRectangle(column * cellSize + 11, row * cellSize + 11, cellSize - 1, cellSize - 1, colors[cellValue]);
         }
-
-        std::cout << std::endl;
     }
 }

@@ -1,6 +1,6 @@
 #include "block.hpp"
 
-Block::Block(int cellSize) : position({0, 4}), cellSize(cellSize)
+Block::Block(int cellSize) : position({-1, 4}), cellSize(cellSize)
 {
 
     this->rotationState = 0;
@@ -25,6 +25,11 @@ void Block::Rotate()
     rotationState = (rotationState + 1) % 4;
 }
 
+void Block::UndoRotate()
+{
+    rotationState = (rotationState - 1 + 4) % 4;
+}
+
 void Block::Move(Position direction){
     position = position + direction;
 }
@@ -36,6 +41,7 @@ void Block::Draw() const
 
     for (Position item : tiles)
     {
-        DrawRectangle(item.column * cellSize + 1, item.row * cellSize + 1, cellSize - 1, cellSize - 1, color);
+        if(item.row < 0) continue;
+        DrawRectangle(item.column * cellSize + 11, item.row * cellSize + 11, cellSize - 1, cellSize - 1, color);
     }
 }

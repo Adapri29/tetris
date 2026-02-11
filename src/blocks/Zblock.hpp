@@ -17,5 +17,7 @@ public:
         cells[3] = {{0, 2}, {1, 2}, {1, 1}, {2, 1}};
 
         color = GetCellColors()[id_];
+
+        position = {-1, 4};
     }
 };

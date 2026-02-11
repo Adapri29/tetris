@@ -8,6 +8,7 @@ const Color orange = {226, 116, 17, 255};
 const Color yellow = {237, 234, 4, 255};
 const Color purple = {166, 0, 209, 255};
 const Color cyan = {21, 204, 209, 255};
+const Color lightGrey = { 100, 100, 100, 255 };
 
 std::vector<Color> GetCellColors()
 {
