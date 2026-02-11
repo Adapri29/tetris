@@ -26,14 +26,18 @@ class Game{
         void MoveBlockDown();
         void RotateBlock();
         void LockBlock();
-        
+
+        void UpdateScore(int numCompleted);
+
         bool IsBlockOutside();
         bool BlockFits();
         
         public:
         bool gameOver;
+        int score;
         
         Game(int nRows, int nColumns, int cellSize);
+        void Reset();
         void HandleInput();
         void Update();
         void Draw();

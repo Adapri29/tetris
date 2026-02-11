@@ -8,7 +8,17 @@ Game::Game(int nRows, int nColumns, int cellSize): grid(nRows, nColumns, cellSiz
     currentBlock = GetRandomBlock();
     nextBlock = GetRandomBlock();
     gameOver = false;
+    score = 0;
 };
+
+void Game::Reset(){
+    gameOver = false;
+    score = 0;
+    grid.Inicialize();
+    blocks = GetAllBlocks();
+    currentBlock = GetRandomBlock();
+    nextBlock = GetRandomBlock();
+}
 
 Block Game::GetRandomBlock(){
 
@@ -115,7 +125,28 @@ void Game::LockBlock(){
         gameOver=true;
     }
     nextBlock = GetRandomBlock();
-    grid.ClearFullRows();
+    int linesCleared = grid.ClearFullRows();
+    UpdateScore(linesCleared);
+}
+
+void Game::UpdateScore(int linesCleared){
+    switch (linesCleared)
+    {
+    case 1:
+        score+=100;
+        break;
+    
+    case 2:
+        score+=300;
+        break;
+    
+    case 3:
+        score+=500;
+        break;
+
+    default:
+        break;
+    }
 }
 
 

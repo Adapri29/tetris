@@ -20,6 +20,8 @@ private:
 
     public:
     Grid(int nRows, int nColumns, int cellSize);
+
+    void Inicialize();
     
     bool IsCellOutside(int row, int column);
     bool IsCellEmpty(int row, int column);

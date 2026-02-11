@@ -7,6 +7,10 @@ Grid::Grid(int nRows, int nColumns, int cellSize)
     colors = GetCellColors();
 }
 
+void Grid::Inicialize(){
+    grid.resize(nRows, std::vector<int>(nColumns, 0));
+}
+
 void Grid::Print() const
 {
     for (int row = 0; row < nRows; row++)
